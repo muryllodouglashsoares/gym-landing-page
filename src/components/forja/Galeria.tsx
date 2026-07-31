@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { GALLERY, IMAGES, IMAGE_SRCSETS, IMAGE_DIMENSIONS } from "./data";
 import { IconClose, IconExpand } from "./icons";
-import { SectionLabel, SectionHeading } from "./shared";
+import { SectionLabel, SectionHeading, Reveal } from "./shared";
 
 export function Galeria() {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
@@ -40,45 +40,46 @@ export function Galeria() {
   return (
     <section id="galeria" className="py-24 lg:py-36 bg-steel-900">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="text-center mb-14">
+        <Reveal className="text-center mb-14">
           <SectionLabel>Galeria</SectionLabel>
           <SectionHeading>
             A FORJA EM
             <br />
             <span className="text-ember">AÇÃO.</span>
           </SectionHeading>
-        </div>
+        </Reveal>
 
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 auto-rows-[200px]">
           {GALLERY.map(({ key, alt, span }, index) => (
-            <button
-              key={key}
-              type="button"
-              onClick={(e) => openLightbox(index, e.currentTarget)}
-              aria-label={`Ampliar foto: ${alt}`}
-              className={`gallery-item relative overflow-hidden cursor-pointer block w-full h-full p-0 border-0 bg-transparent text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-ember focus-visible:outline-offset-2 ${span}`}
-            >
-              <img
-                src={IMAGES[key]}
-                srcSet={IMAGE_SRCSETS[key]}
-                sizes="(min-width: 1024px) 33vw, 50vw"
-                width={IMAGE_DIMENSIONS[key].width}
-                height={IMAGE_DIMENSIONS[key].height}
-                alt={alt}
-                loading="lazy"
-                className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                style={{ filter: "brightness(0.75) saturate(0.8)" }}
-              />
-              <div
-                className="gallery-overlay absolute inset-0 opacity-0 transition-opacity duration-300 flex items-center justify-center"
-                style={{ background: "rgba(249,115,22,0.2)" }}
-                aria-hidden="true"
+            <Reveal key={key} delayMs={index * 50} variant="fade" className={span}>
+              <button
+                type="button"
+                onClick={(e) => openLightbox(index, e.currentTarget)}
+                aria-label={`Ampliar foto: ${alt}`}
+                className="gallery-item relative overflow-hidden cursor-pointer block w-full h-full p-0 border-0 bg-transparent text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-ember focus-visible:outline-offset-2"
               >
-                <div className="w-10 h-10 border-2 border-ice flex items-center justify-center">
-                  <IconExpand />
+                <img
+                  src={IMAGES[key]}
+                  srcSet={IMAGE_SRCSETS[key]}
+                  sizes="(min-width: 1024px) 33vw, 50vw"
+                  width={IMAGE_DIMENSIONS[key].width}
+                  height={IMAGE_DIMENSIONS[key].height}
+                  alt={alt}
+                  loading="lazy"
+                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                  style={{ filter: "brightness(0.75) saturate(0.8)" }}
+                />
+                <div
+                  className="gallery-overlay absolute inset-0 opacity-0 transition-opacity duration-300 flex items-center justify-center"
+                  style={{ background: "rgba(249,115,22,0.2)" }}
+                  aria-hidden="true"
+                >
+                  <div className="w-10 h-10 border-2 border-ice flex items-center justify-center">
+                    <IconExpand />
+                  </div>
                 </div>
-              </div>
-            </button>
+              </button>
+            </Reveal>
           ))}
         </div>
       </div>

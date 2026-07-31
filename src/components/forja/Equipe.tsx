@@ -1,11 +1,11 @@
 import { TEAM, IMAGES, IMAGE_SRCSETS, IMAGE_DIMENSIONS } from "./data";
-import { SectionLabel, SectionHeading } from "./shared";
+import { SectionLabel, SectionHeading, Reveal } from "./shared";
 
 export function Equipe() {
   return (
     <section id="equipe" className="py-24 lg:py-36 bg-charcoal">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-14">
+        <Reveal className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-14">
           <div>
             <SectionLabel>Equipe</SectionLabel>
             <SectionHeading tight>
@@ -17,11 +17,11 @@ export function Equipe() {
           <p className="text-steel-400 max-w-xs leading-relaxed" style={{ fontWeight: 300 }}>
             Nosso time é selecionado por excelência técnica e vocação para transformar vidas.
           </p>
-        </div>
+        </Reveal>
 
         <div className="grid md:grid-cols-3 gap-6">
-          {TEAM.map(({ key, name, role, bio }) => (
-            <div key={name} className="card-lift border border-steel-700 group overflow-hidden">
+          {TEAM.map(({ key, name, role, bio }, i) => (
+            <Reveal key={name} delayMs={i * 90} className="card-lift border border-steel-700 group overflow-hidden">
               <div className="relative overflow-hidden" style={{ height: "320px" }}>
                 <img
                   src={IMAGES[key]}
@@ -56,7 +56,7 @@ export function Equipe() {
               <div className="p-5">
                 <p className="text-steel-400 text-sm leading-relaxed">{bio}</p>
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>

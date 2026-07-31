@@ -63,6 +63,8 @@ export const Route = createFileRoute("/")({
       { property: "og:image", content: IMAGES.heroBg },
       { property: "og:locale", content: "pt_BR" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: TITLE },
+      { name: "twitter:description", content: DESCRIPTION },
       { name: "twitter:image", content: IMAGES.heroBg },
     ],
     links: [{ rel: "canonical", href: `${SITE_URL}/` }],

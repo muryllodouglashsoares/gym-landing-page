@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 
 /** Rótulo de seção com traços laterais (padrão do design FORJA). */
 export function SectionLabel({ children }: { children: ReactNode }) {
@@ -56,5 +56,122 @@ export function BrandMark() {
         </div>
       </div>
     </>
+  );
+}
+
+/**
+ * Conta de 0 até `value` quando o elemento entra na viewport (uma única
+ * vez). Se o usuário preferir menos movimento, mostra o valor final direto,
+ * sem contagem.
+ */
+export function AnimatedNumber({
+  value,
+  decimals = 0,
+  prefix = "",
+  suffix = "",
+  durationMs = 1400,
+}: {
+  value: number;
+  decimals?: number;
+  prefix?: string;
+  suffix?: string;
+  durationMs?: number;
+}) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [display, setDisplay] = useState((0).toFixed(decimals));
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setDisplay(value.toFixed(decimals));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        observer.unobserve(node);
+        const start = performance.now();
+        const tick = (now: number) => {
+          const progress = Math.min((now - start) / durationMs, 1);
+          const eased = 1 - Math.pow(1 - progress, 3); // ease-out cúbico
+          setDisplay((value * eased).toFixed(decimals));
+          if (progress < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      },
+      { threshold: 0.4 },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value, decimals, durationMs]);
+
+  return (
+    <span ref={ref}>
+      {prefix}
+      {display}
+      {suffix}
+    </span>
+  );
+}
+
+/**
+ * Anima a entrada do conteúdo quando ele entra na viewport, uma única vez.
+ * Some elementos de tela pequena continuam com opacidade normal antes da
+ * hidratação (a classe reveal-init evita "flash" de conteúdo sem estilo).
+ * Respeita prefers-reduced-motion via CSS (ver .reveal-init/.reveal-visible
+ * em styles.css) — se o usuário pedir menos movimento, o conteúdo aparece
+ * imediatamente, sem depender do observer.
+ */
+export function Reveal({
+  children,
+  className = "",
+  delayMs = 0,
+  variant = "up",
+  style,
+}: {
+  children: ReactNode;
+  className?: string;
+  delayMs?: number;
+  /** "up": sobe + aparece (padrão). "fade": só opacidade — usar quando o
+   * elemento já tem um transform próprio permanente (ex.: scale fixo). */
+  variant?: "up" | "fade";
+  /** Estilos extras do elemento (mesclados com o delay da animação). */
+  style?: CSSProperties;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.unobserve(node);
+        }
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -40px 0px" },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  const initClass = variant === "fade" ? "reveal-fade-init" : "reveal-init";
+  const visibleClass = variant === "fade" ? "reveal-fade-visible" : "reveal-visible";
+
+  return (
+    <div
+      ref={ref}
+      className={`${initClass} ${visible ? visibleClass : ""} ${className}`.trim()}
+      style={{ ...style, ...(delayMs ? { animationDelay: `${delayMs}ms` } : {}) }}
+    >
+      {children}
+    </div>
   );
 }

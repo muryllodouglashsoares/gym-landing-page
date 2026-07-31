@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { CONTACT, WHATSAPP_URL, INSTAGRAM_URL, MAPS_QUERY_URL, MAPS_EMBED_URL } from "./data";
 import { IconPin, IconPhone, IconWhatsapp, IconInstagram } from "./icons";
-import { SectionLabel, SectionHeading } from "./shared";
+import { SectionLabel, SectionHeading, Reveal } from "./shared";
 import { contactSchema, CONTACT_FORM_DEFAULTS, type ContactFormValues } from "@/lib/contact-schema";
 import { submitContactRequest } from "@/lib/contact.server";
 
@@ -54,7 +54,7 @@ export function Contato() {
     <section id="contato" className="py-24 lg:py-36 bg-charcoal">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="grid lg:grid-cols-2 gap-16">
-          <div>
+          <Reveal>
             <SectionLabel>Contato</SectionLabel>
             <SectionHeading tight className="mb-8">
               VAMOS
@@ -118,9 +118,9 @@ export function Contato() {
                 Ver no Google Maps
               </a>
             </div>
-          </div>
+          </Reveal>
 
-          <div>
+          <Reveal delayMs={100}>
             <div className="border border-steel-700 bg-steel-900 p-8 lg:p-10">
               <h3
                 className="font-display font-black text-ice uppercase mb-6"
@@ -244,7 +244,7 @@ export function Contato() {
                 </form>
               )}
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

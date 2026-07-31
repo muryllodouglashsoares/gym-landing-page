@@ -206,6 +206,22 @@ body {
 .animate-scroll-pulse { animation: scrollPulse 2s ease-in-out infinite; }
 .animate-glow-pulse { animation: glowPulse 2.5s ease-in-out infinite; }
 
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Reveal-on-scroll: o item começa invisível/deslocado e anima ao entrar na
+   viewport (ver componente <Reveal> em shared.tsx). */
+.reveal-init { opacity: 0; transform: translateY(28px); }
+.reveal-visible { animation: fadeUp 0.7s ease-out forwards; }
+
+/* Variante sem transform, para elementos que já têm um transform próprio
+   permanente (ex.: o card de plano em destaque, com scale fixo) — evita que
+   o "forwards" da animação sobrescreva esse transform ao final. */
+.reveal-fade-init { opacity: 0; }
+.reveal-fade-visible { animation: fadeIn 0.6s ease-out forwards; }
+
 .accordion-content {
   max-height: 0;
   overflow: hidden;
@@ -226,8 +242,12 @@ body {
 
 .gallery-item:hover .gallery-overlay { opacity: 1; }
 
-.card-lift { transition: transform 0.3s, border-color 0.3s; }
-.card-lift:hover { transform: translateY(-4px); border-color: rgba(249, 115, 22, 0.4); }
+.card-lift { transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; }
+.card-lift:hover {
+  transform: translateY(-4px);
+  border-color: rgba(249, 115, 22, 0.4);
+  box-shadow: 0 16px 32px -12px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(249, 115, 22, 0.08);
+}
 
 .testimonial-slide { transition: opacity 0.5s; }
 
@@ -249,5 +269,12 @@ body {
   .animate-fade-up,
   .animate-ember-rise,
   .animate-scroll-pulse,
-  .animate-glow-pulse { animation: none; }
+  .animate-glow-pulse,
+  .reveal-visible,
+  .reveal-fade-visible { animation: none; }
+  /* Garante que conteúdo com reveal nunca fique preso invisível quando a
+     animação é desativada. */
+  .reveal-init,
+  .reveal-fade-init { opacity: 1; transform: none; }
+  .card-lift:hover { transform: none; }
 }

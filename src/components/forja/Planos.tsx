@@ -1,12 +1,12 @@
 import { PLANS } from "./data";
 import { IconCheck } from "./icons";
-import { SectionLabel, SectionHeading } from "./shared";
+import { SectionLabel, SectionHeading, Reveal } from "./shared";
 
 export function Planos() {
   return (
     <section id="planos" className="py-24 lg:py-36 bg-steel-900">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="text-center mb-16">
+        <Reveal className="text-center mb-16">
           <SectionLabel>Planos</SectionLabel>
           <SectionHeading className="mb-4">
             INVISTA NA SUA
@@ -16,18 +16,20 @@ export function Planos() {
           <p className="text-steel-400 max-w-md mx-auto" style={{ fontWeight: 300 }}>
             Sem taxa de matrícula nos primeiros 3 dias. Cancele quando quiser.
           </p>
-        </div>
+        </Reveal>
 
         <div className="grid md:grid-cols-3 gap-6 items-start">
-          {PLANS.map((plan) => (
-            <div
+          {PLANS.map((plan, i) => (
+            <Reveal
               key={plan.name}
+              delayMs={i * 90}
+              variant="fade"
               className={`relative p-8 transition-all duration-300 ${
                 plan.highlight
                   ? "border-2 border-ember bg-steel-900"
                   : "border border-steel-700 bg-steel-800 hover:border-steel-400"
               }`}
-              style={plan.highlight ? { transform: "scale(1.03)" } : {}}
+              style={plan.highlight ? { transform: "scale(1.03)" } : undefined}
             >
               {plan.highlight && (
                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-ember font-display font-black text-charcoal px-5 py-1 text-xs uppercase tracking-widest">
@@ -78,7 +80,7 @@ export function Planos() {
               >
                 {plan.cta}
               </a>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>

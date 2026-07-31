@@ -1,5 +1,5 @@
 import { IconDumbbell, IconFlame, IconCross, IconUser, IconHeart, IconClipboard } from "./icons";
-import { SectionLabel, SectionHeading } from "./shared";
+import { SectionLabel, SectionHeading, Reveal } from "./shared";
 
 const MODALIDADES = [
   {
@@ -38,19 +38,20 @@ export function Modalidades() {
   return (
     <section id="modalidades" className="py-24 lg:py-36 bg-steel-900">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="text-center mb-16">
+        <Reveal className="text-center mb-16">
           <SectionLabel>Modalidades</SectionLabel>
           <SectionHeading>
             ESCOLHA SUA
             <br />
             <span className="text-ember">BATALHA.</span>
           </SectionHeading>
-        </div>
+        </Reveal>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-steel-700">
-          {MODALIDADES.map(({ icon, title, desc }) => (
-            <div
+          {MODALIDADES.map(({ icon, title, desc }, i) => (
+            <Reveal
               key={title}
+              delayMs={i * 70}
               className="card-lift bg-steel-900 p-8 border border-transparent group cursor-pointer"
             >
               <div className="text-steel-400 group-hover:text-ember transition-colors mb-5">
@@ -64,7 +65,7 @@ export function Modalidades() {
               </h3>
               <p className="text-steel-400 text-sm leading-relaxed">{desc}</p>
               <div className="mt-5 w-8 h-0.5 bg-ember scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>

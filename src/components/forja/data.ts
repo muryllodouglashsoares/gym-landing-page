@@ -73,9 +73,9 @@ export const NAV_LINKS = [
 ] as const;
 
 export const HERO_STATS = [
-  { num: "+500", label: "Alunos Ativos" },
-  { num: "8 Anos", label: "de Excelência" },
-  { num: "5.0★", label: "Avaliação Média" },
+  { value: 500, decimals: 0, prefix: "+", suffix: "", label: "Alunos Ativos" },
+  { value: 8, decimals: 0, prefix: "", suffix: " Anos", label: "de Excelência" },
+  { value: 5, decimals: 1, prefix: "", suffix: "★", label: "Avaliação Média" },
 ] as const;
 
 export const TIMELINE = [

@@ -1,12 +1,12 @@
 import { IMAGES, IMAGE_SRCSETS, IMAGE_DIMENSIONS, TIMELINE } from "./data";
-import { SectionLabel, SectionHeading } from "./shared";
+import { SectionLabel, SectionHeading, Reveal, AnimatedNumber } from "./shared";
 
 export function About() {
   return (
     <section id="sobre" className="py-24 lg:py-36 bg-charcoal">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-          <div className="relative">
+          <Reveal variant="fade" className="relative">
             <div
               className="absolute pointer-events-none"
               style={{
@@ -45,7 +45,7 @@ export function About() {
                 className="font-display font-black leading-none mb-0.5"
                 style={{ fontSize: "2.5rem" }}
               >
-                8+
+                <AnimatedNumber value={8} suffix="+" />
               </div>
               <div className="font-display font-bold uppercase text-[10px] tracking-widest">
                 Anos de
@@ -54,9 +54,9 @@ export function About() {
                 Excelência
               </div>
             </div>
-          </div>
+          </Reveal>
 
-          <div>
+          <Reveal delayMs={100}>
             <SectionLabel>Nossa História</SectionLabel>
             <SectionHeading tight className="mb-6">
               MOLDADOS
@@ -105,7 +105,7 @@ export function About() {
                 </div>
               ))}
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

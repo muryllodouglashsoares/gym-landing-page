@@ -1,4 +1,5 @@
 import { IMAGES, IMAGE_SRCSETS, IMAGE_DIMENSIONS, HERO_STATS } from "./data";
+import { AnimatedNumber } from "./shared";
 
 const EMBERS = [
   { left: "18%", bottom: "12%", dur: "3.2s", delay: "0s", drift: "14px", size: 3 },
@@ -87,6 +88,18 @@ export function Hero() {
           background: "radial-gradient(ellipse, rgba(249,115,22,0.06) 0%, transparent 70%)",
         }}
       />
+
+      {/* Textura sutil de aço escovado — reforça a identidade "forja" sem
+          competir com o texto (ecoa o mesmo padrão diagonal usado no CTA final). */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage:
+            "repeating-linear-gradient(115deg, rgba(255,255,255,0.025) 0, rgba(255,255,255,0.025) 1px, transparent 0, transparent 3px)",
+          WebkitMaskImage: "linear-gradient(to bottom, transparent, black 30%, black 70%, transparent)",
+          maskImage: "linear-gradient(to bottom, transparent, black 30%, black 70%, transparent)",
+        }}
+      />
       <EmberParticles />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 w-full pt-32 pb-28">
@@ -137,13 +150,13 @@ export function Hero() {
             </div>
 
             <div className="flex gap-10 flex-wrap">
-              {HERO_STATS.map(({ num, label }) => (
+              {HERO_STATS.map(({ value, decimals, prefix, suffix, label }) => (
                 <div key={label} className="border-l-2 border-ember/30 pl-4">
                   <div
                     className="font-display font-black text-ember leading-tight"
                     style={{ fontSize: "1.75rem" }}
                   >
-                    {num}
+                    <AnimatedNumber value={value} decimals={decimals} prefix={prefix} suffix={suffix} />
                   </div>
                   <div className="text-steel-400 text-xs uppercase tracking-widest mt-0.5">
                     {label}

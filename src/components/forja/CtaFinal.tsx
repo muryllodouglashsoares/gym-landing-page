@@ -1,3 +1,5 @@
+import { Reveal } from "./shared";
+
 export function CtaFinal() {
   return (
     <section className="relative py-28 lg:py-40 overflow-hidden" style={{ background: "#f97316" }}>
@@ -15,7 +17,7 @@ export function CtaFinal() {
           background: "radial-gradient(ellipse at top right, rgba(0,0,0,0.12) 0%, transparent 70%)",
         }}
       />
-      <div className="relative max-w-4xl mx-auto px-6 lg:px-12 text-center">
+      <Reveal className="relative max-w-4xl mx-auto px-6 lg:px-12 text-center">
         <div className="inline-block border border-charcoal/20 font-display font-bold text-charcoal text-[10px] uppercase tracking-[0.4em] px-5 py-2 mb-8">
           Começe Agora · Primeira Semana Grátis
         </div>
@@ -50,7 +52,7 @@ export function CtaFinal() {
             Ver Planos
           </a>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

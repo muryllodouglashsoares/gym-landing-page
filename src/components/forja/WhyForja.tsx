@@ -1,5 +1,5 @@
 import { IconShield, IconUser, IconClipboard, IconFlame, IconHeart, IconStar } from "./icons";
-import { SectionLabel, SectionHeading } from "./shared";
+import { SectionLabel, SectionHeading, Reveal } from "./shared";
 
 const REASONS = [
   {
@@ -50,7 +50,7 @@ export function WhyForja() {
       />
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="grid lg:grid-cols-[1fr_2fr] gap-16 items-start">
-          <div className="lg:sticky lg:top-32">
+          <Reveal className="lg:sticky lg:top-32">
             <SectionLabel>Por Que FORJA</SectionLabel>
             <SectionHeading tight className="mb-6">
               O AÇO SE
@@ -62,11 +62,11 @@ export function WhyForja() {
             <p className="text-steel-400 leading-relaxed" style={{ fontWeight: 300 }}>
               Não somos uma academia qualquer. Somos um laboratório de transformação humana.
             </p>
-          </div>
+          </Reveal>
 
           <div className="grid sm:grid-cols-2 gap-6">
-            {REASONS.map(({ icon, title, desc }) => (
-              <div key={title} className="card-lift border border-steel-700 p-6 group">
+            {REASONS.map(({ icon, title, desc }, i) => (
+              <Reveal key={title} delayMs={i * 70} className="card-lift border border-steel-700 p-6 group">
                 <div className="text-ember mb-4">{icon}</div>
                 <h3
                   className="font-display font-extrabold text-ice uppercase mb-2"
@@ -75,7 +75,7 @@ export function WhyForja() {
                   {title}
                 </h3>
                 <p className="text-steel-400 text-sm leading-relaxed">{desc}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>

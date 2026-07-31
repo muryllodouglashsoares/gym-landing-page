@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { TESTIMONIALS } from "./data";
 import { IconStar, IconArrowLeft, IconArrowRight } from "./icons";
-import { SectionLabel, SectionHeading } from "./shared";
+import { SectionLabel, SectionHeading, Reveal } from "./shared";
 
 export function Depoimentos() {
   const [index, setIndex] = useState(0);
@@ -12,16 +12,16 @@ export function Depoimentos() {
   return (
     <section className="py-24 lg:py-36 bg-charcoal">
       <div className="max-w-5xl mx-auto px-6 lg:px-12">
-        <div className="text-center mb-14">
+        <Reveal className="text-center mb-14">
           <SectionLabel>Depoimentos</SectionLabel>
           <SectionHeading>
             QUEM JÁ FOI
             <br />
             <span className="text-ember">FORJADO.</span>
           </SectionHeading>
-        </div>
+        </Reveal>
 
-        <div className="border border-steel-700 bg-steel-900 p-8 md:p-12 relative">
+        <Reveal variant="fade" className="border border-steel-700 bg-steel-900 p-8 md:p-12 relative">
           <div
             className="absolute top-6 left-8 text-ember/10 leading-none pointer-events-none font-display font-black"
             style={{ fontSize: "8rem", lineHeight: 1 }}
@@ -67,7 +67,7 @@ export function Depoimentos() {
               </div>
             </div>
           </div>
-        </div>
+        </Reveal>
 
         <div className="flex justify-center gap-2 mt-6">
           {TESTIMONIALS.map((t, i) => (
