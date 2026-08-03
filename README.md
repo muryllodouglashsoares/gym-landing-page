@@ -65,8 +65,10 @@ bun run format      # prettier
 ### Variáveis de ambiente
 
 ```
-CONTACT_WEBHOOK_URL= https://hook.us2.make.com/fxifoofnkd83tyz4l6qkx39ovj7h98qw
+CONTACT_WEBHOOK_URL=
 ```
+
+> Variável real definida apenas no Cloudflare Pages ( Serviço de Deploy ).
 
 ## Decisões de projeto
 
