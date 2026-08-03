@@ -2,10 +2,20 @@ import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { CONTACT, WHATSAPP_URL, INSTAGRAM_URL, MAPS_QUERY_URL, MAPS_EMBED_URL } from "./data";
+import {
+  CONTACT,
+  WHATSAPP_URL,
+  INSTAGRAM_URL,
+  MAPS_QUERY_URL,
+  MAPS_EMBED_URL,
+} from "./data";
 import { IconPin, IconPhone, IconWhatsapp, IconInstagram } from "./icons";
 import { SectionLabel, SectionHeading, Reveal } from "./shared";
-import { contactSchema, CONTACT_FORM_DEFAULTS, type ContactFormValues } from "@/lib/contact-schema";
+import {
+  contactSchema,
+  CONTACT_FORM_DEFAULTS,
+  type ContactFormValues,
+} from "@/lib/contact-schema";
 import { submitContactRequest } from "@/lib/contact.server";
 
 const inputClass =
@@ -80,8 +90,16 @@ export function Contato() {
 
             <div className="flex gap-4">
               {[
-                { icon: <IconWhatsapp />, label: "WhatsApp", href: WHATSAPP_URL },
-                { icon: <IconInstagram />, label: "Instagram", href: INSTAGRAM_URL },
+                {
+                  icon: <IconWhatsapp />,
+                  label: "WhatsApp",
+                  href: WHATSAPP_URL,
+                },
+                {
+                  icon: <IconInstagram />,
+                  label: "Instagram",
+                  href: INSTAGRAM_URL,
+                },
               ].map(({ icon, label, href }) => (
                 <a
                   key={label}
@@ -164,7 +182,9 @@ export function Contato() {
                       className={inputClass}
                       {...register("nome")}
                     />
-                    {errors.nome && <p className={errorClass}>{errors.nome.message}</p>}
+                    {errors.nome && (
+                      <p className={errorClass}>{errors.nome.message}</p>
+                    )}
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
@@ -177,7 +197,9 @@ export function Contato() {
                         className={inputClass}
                         {...register("email")}
                       />
-                      {errors.email && <p className={errorClass}>{errors.email.message}</p>}
+                      {errors.email && (
+                        <p className={errorClass}>{errors.email.message}</p>
+                      )}
                     </div>
                     <div>
                       <input
@@ -188,7 +210,9 @@ export function Contato() {
                         className={inputClass}
                         {...register("telefone")}
                       />
-                      {errors.telefone && <p className={errorClass}>{errors.telefone.message}</p>}
+                      {errors.telefone && (
+                        <p className={errorClass}>{errors.telefone.message}</p>
+                      )}
                     </div>
                   </div>
 
@@ -222,7 +246,9 @@ export function Contato() {
                       className={`${inputClass} resize-none`}
                       {...register("mensagem")}
                     />
-                    {errors.mensagem && <p className={errorClass}>{errors.mensagem.message}</p>}
+                    {errors.mensagem && (
+                      <p className={errorClass}>{errors.mensagem.message}</p>
+                    )}
                   </div>
 
                   {serverError && (
@@ -240,6 +266,12 @@ export function Contato() {
                   </button>
                   <p className="text-steel-400 text-xs text-center">
                     Primeira aula experimental gratuita · Sem compromisso
+                  </p>
+                  <p className="text-steel-500 text-[11px] text-center leading-relaxed">
+                    Este é um projeto de portfólio: a FORJA não é uma academia
+                    real. Ao enviar, seus dados são armazenados em uma planilha
+                    para fins de demonstração técnica — evite incluir
+                    informações reais ou sensíveis.
                   </p>
                 </form>
               )}

@@ -15,8 +15,9 @@ import { Contato } from "../components/forja/Contato";
 import { Footer } from "../components/forja/Footer";
 import { FAQS, IMAGES } from "../components/forja/data";
 
-// TODO(cliente): confirmar o domínio final de produção antes do deploy.
-// A canonical, og:url e JSON-LD abaixo dependem deste valor.
+// Domínio de produção deste projeto de portfólio (site fictício, sem
+// vínculo com uma academia real). Canonical, og:url e JSON-LD abaixo
+// dependem deste valor.
 const SITE_URL = "https://forjatraining.com.br";
 
 const TITLE = "FORJA Training Studio | Academia Premium em Pinheiros, SP";
@@ -40,7 +41,11 @@ const jsonLd = {
     addressRegion: "SP",
     addressCountry: "BR",
   },
-  aggregateRating: { "@type": "AggregateRating", ratingValue: "5.0", reviewCount: "500" },
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "5.0",
+    reviewCount: "500",
+  },
   mainEntityOfPage: {
     "@type": "FAQPage",
     mainEntity: FAQS.map(({ q, a }) => ({
@@ -68,7 +73,9 @@ export const Route = createFileRoute("/")({
       { name: "twitter:image", content: IMAGES.heroBg },
     ],
     links: [{ rel: "canonical", href: `${SITE_URL}/` }],
-    scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }],
+    scripts: [
+      { type: "application/ld+json", children: JSON.stringify(jsonLd) },
+    ],
   }),
   component: Index,
 });
