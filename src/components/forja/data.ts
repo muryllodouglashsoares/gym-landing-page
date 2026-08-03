@@ -37,7 +37,9 @@ function buildSrcSet(url: string, widths: number[]): string {
   return widths
     .map((w) => {
       const h = Math.round(w * ratio);
-      const scaled = url.replace(/([?&])w=\d+/, `$1w=${w}`).replace(/([?&])h=\d+/, `$1h=${h}`);
+      const scaled = url
+        .replace(/([?&])w=\d+/, `$1w=${w}`)
+        .replace(/([?&])h=\d+/, `$1h=${h}`);
       return `${scaled} ${w}w`;
     })
     .join(", ");
@@ -74,7 +76,13 @@ export const NAV_LINKS = [
 
 export const HERO_STATS = [
   { value: 500, decimals: 0, prefix: "+", suffix: "", label: "Alunos Ativos" },
-  { value: 8, decimals: 0, prefix: "", suffix: " Anos", label: "de Excelência" },
+  {
+    value: 8,
+    decimals: 0,
+    prefix: "",
+    suffix: " Anos",
+    label: "de Excelência",
+  },
   { value: 5, decimals: 1, prefix: "", suffix: "★", label: "Avaliação Média" },
 ] as const;
 
@@ -243,13 +251,16 @@ export const CONTACT = {
   phone: "(11) 98765-4321",
   whatsapp: "(11) 98765-4321 — Atendimento 7h às 21h",
   cref: "CREF 012345-G/SP",
-  // TODO(cliente): confirmar o @ real do Instagram antes do lançamento.
+  // @ fictício, usado apenas para fins de portfólio (a FORJA não é uma
+  // academia real, então este perfil não existe/não é monitorado).
   instagramHandle: "forja.trainingstudio",
 } as const;
 
 /** Links reais de contato, derivados de CONTACT para não duplicar dados. */
 const phoneDigits = CONTACT.phone.replace(/\D/g, "");
-const whatsappDigits = phoneDigits.startsWith("55") ? phoneDigits : `55${phoneDigits}`;
+const whatsappDigits = phoneDigits.startsWith("55")
+  ? phoneDigits
+  : `55${phoneDigits}`;
 
 export const WHATSAPP_URL = `https://wa.me/${whatsappDigits}?text=${encodeURIComponent(
   "Olá! Gostaria de agendar uma aula experimental na FORJA.",
