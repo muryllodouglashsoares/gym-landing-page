@@ -78,4 +78,4 @@ CONTACT_WEBHOOK_URL=
 
 ## Licença
 
-Projeto para fins de portfólio. Sinta-se livre para usar como referência.
+Consulte a licença do projeto no arquivo LICENSE.
