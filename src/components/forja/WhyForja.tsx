@@ -1,5 +1,17 @@
-import { IconShield, IconUser, IconClipboard, IconFlame, IconHeart, IconStar } from "./icons";
-import { SectionLabel, SectionHeading, Reveal } from "./shared";
+import {
+  IconShield,
+  IconUser,
+  IconClipboard,
+  IconFlame,
+  IconHeart,
+  IconStar,
+} from "./icons";
+import {
+  SectionLabel,
+  SectionHeading,
+  Reveal,
+  SECTION_PADDING,
+} from "./shared";
 
 const REASONS = [
   {
@@ -36,7 +48,9 @@ const REASONS = [
 
 export function WhyForja() {
   return (
-    <section className="py-24 lg:py-36 bg-charcoal relative overflow-hidden">
+    <section
+      className={`${SECTION_PADDING} bg-charcoal relative overflow-hidden`}
+    >
       <div
         className="absolute pointer-events-none"
         style={{
@@ -45,7 +59,8 @@ export function WhyForja() {
           transform: "translateY(-50%)",
           width: "400px",
           height: "400px",
-          background: "radial-gradient(ellipse, rgba(249,115,22,0.07) 0%, transparent 70%)",
+          background:
+            "radial-gradient(ellipse, rgba(249,115,22,0.07) 0%, transparent 70%)",
         }}
       />
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
@@ -59,14 +74,22 @@ export function WhyForja() {
               <br />
               NO FOGO.
             </SectionHeading>
-            <p className="text-steel-400 leading-relaxed" style={{ fontWeight: 300 }}>
-              Não somos uma academia qualquer. Somos um laboratório de transformação humana.
+            <p
+              className="text-steel-400 leading-relaxed"
+              style={{ fontWeight: 300 }}
+            >
+              Não somos uma academia qualquer. Somos um laboratório de
+              transformação humana.
             </p>
           </Reveal>
 
           <div className="grid sm:grid-cols-2 gap-6">
             {REASONS.map(({ icon, title, desc }, i) => (
-              <Reveal key={title} delayMs={i * 70} className="card-lift border border-steel-700 p-6 group">
+              <Reveal
+                key={title}
+                delayMs={i * 70}
+                className="card-lift border border-steel-700 p-6 group"
+              >
                 <div className="text-ember mb-4">{icon}</div>
                 <h3
                   className="font-display font-extrabold text-ice uppercase mb-2"

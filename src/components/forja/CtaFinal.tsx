@@ -1,8 +1,11 @@
-import { Reveal } from "./shared";
+import { Reveal, SECTION_PADDING_LG } from "./shared";
 
 export function CtaFinal() {
   return (
-    <section className="relative py-28 lg:py-40 overflow-hidden" style={{ background: "#f97316" }}>
+    <section
+      className={`relative ${SECTION_PADDING_LG} overflow-hidden`}
+      style={{ background: "#f97316" }}
+    >
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -14,7 +17,8 @@ export function CtaFinal() {
       <div
         className="absolute top-0 right-0 w-96 h-96 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse at top right, rgba(0,0,0,0.12) 0%, transparent 70%)",
+          background:
+            "radial-gradient(ellipse at top right, rgba(0,0,0,0.12) 0%, transparent 70%)",
         }}
       />
       <Reveal className="relative max-w-4xl mx-auto px-6 lg:px-12 text-center">
@@ -22,8 +26,8 @@ export function CtaFinal() {
           Começe Agora · Primeira Semana Grátis
         </div>
         <h2
-          className="font-display font-black text-charcoal uppercase leading-[0.88] mb-6"
-          style={{ fontSize: "clamp(3.5rem, 8vw, 6.5rem)" }}
+          className="font-display font-black text-charcoal uppercase leading-[0.88] mb-6 break-words"
+          style={{ fontSize: "clamp(2.75rem, 10vw, 6.5rem)" }}
         >
           SUA FORJA
           <br />
@@ -35,19 +39,19 @@ export function CtaFinal() {
           className="text-charcoal/70 mb-12 max-w-lg mx-auto"
           style={{ fontWeight: 300, fontSize: "1.1rem" }}
         >
-          Sem desculpas. Sem amanhã. Cada dia sem treinar é um dia a menos para ser quem você quer
-          ser.
+          Sem desculpas. Sem amanhã. Cada dia sem treinar é um dia a menos para
+          ser quem você quer ser.
         </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
           <a
             href="#contato"
-            className="px-12 py-4 bg-charcoal font-display font-black text-ice text-sm uppercase tracking-widest hover:bg-steel-900 transition-colors btn-ember"
+            className="w-full sm:w-auto text-center px-8 sm:px-12 py-4 bg-charcoal font-display font-black text-ice text-sm uppercase tracking-widest hover:bg-steel-900 transition-colors btn-ember"
           >
             Agendar Aula Experimental
           </a>
           <a
             href="#planos"
-            className="px-12 py-4 border-2 border-charcoal/30 font-display font-black text-charcoal text-sm uppercase tracking-widest hover:border-charcoal transition-colors"
+            className="w-full sm:w-auto text-center px-8 sm:px-12 py-4 border-2 border-charcoal/30 font-display font-black text-charcoal text-sm uppercase tracking-widest hover:border-charcoal transition-colors"
           >
             Ver Planos
           </a>

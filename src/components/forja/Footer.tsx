@@ -2,7 +2,14 @@ import { CONTACT, WHATSAPP_URL, INSTAGRAM_URL } from "./data";
 import { IconInstagram, IconWhatsapp } from "./icons";
 import { BrandMark } from "./shared";
 
-const FOOTER_LINKS = ["Sobre", "Modalidades", "Planos", "Equipe", "Galeria", "Contato"];
+const FOOTER_LINKS = [
+  "Sobre",
+  "Modalidades",
+  "Planos",
+  "Equipe",
+  "Galeria",
+  "Contato",
+];
 
 export function Footer() {
   return (
@@ -49,7 +56,8 @@ export function Footer() {
 
         <div className="border-t border-steel-700 pt-6 flex flex-col md:flex-row justify-between gap-3">
           <p className="text-steel-400 text-xs">
-            © {new Date().getFullYear()} FORJA Training Studio. Todos os direitos reservados.
+            © {new Date().getFullYear()} FORJA Training Studio. Todos os
+            direitos reservados.
           </p>
           <p className="text-steel-400 text-xs">
             {CONTACT.address} · {CONTACT.cref}

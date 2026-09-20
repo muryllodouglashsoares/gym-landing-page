@@ -1,10 +1,15 @@
 import { PLANS } from "./data";
 import { IconCheck } from "./icons";
-import { SectionLabel, SectionHeading, Reveal } from "./shared";
+import {
+  SectionLabel,
+  SectionHeading,
+  Reveal,
+  SECTION_PADDING,
+} from "./shared";
 
 export function Planos() {
   return (
-    <section id="planos" className="py-24 lg:py-36 bg-steel-900">
+    <section id="planos" className={`${SECTION_PADDING} bg-steel-900`}>
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <Reveal className="text-center mb-16">
           <SectionLabel>Planos</SectionLabel>
@@ -13,7 +18,10 @@ export function Planos() {
             <br />
             <span className="text-ember">TRANSFORMAÇÃO.</span>
           </SectionHeading>
-          <p className="text-steel-400 max-w-md mx-auto" style={{ fontWeight: 300 }}>
+          <p
+            className="text-steel-400 max-w-md mx-auto"
+            style={{ fontWeight: 300 }}
+          >
             Sem taxa de matrícula nos primeiros 3 dias. Cancele quando quiser.
           </p>
         </Reveal>
@@ -24,12 +32,11 @@ export function Planos() {
               key={plan.name}
               delayMs={i * 90}
               variant="fade"
-              className={`relative p-8 transition-all duration-300 ${
+              className={`relative p-6 sm:p-8 transition-all duration-300 ${
                 plan.highlight
-                  ? "border-2 border-ember bg-steel-900"
+                  ? "border-2 border-ember bg-steel-900 md:scale-[1.03]"
                   : "border border-steel-700 bg-steel-800 hover:border-steel-400"
               }`}
-              style={plan.highlight ? { transform: "scale(1.03)" } : undefined}
             >
               {plan.highlight && (
                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-ember font-display font-black text-charcoal px-5 py-1 text-xs uppercase tracking-widest">
@@ -42,14 +49,17 @@ export function Planos() {
               <div className="flex items-end gap-1 mb-2">
                 <span className="text-steel-400 text-sm mt-1">R$</span>
                 <span
-                  className={`font-display font-black leading-none ${plan.highlight ? "text-ember" : "text-ice"}`}
-                  style={{ fontSize: "3.5rem" }}
+                  className={`font-display font-black leading-none text-[2.75rem] sm:text-[3.5rem] ${plan.highlight ? "text-ember" : "text-ice"}`}
                 >
                   {plan.price}
                 </span>
-                <span className="text-steel-400 text-sm mb-1">{plan.period}</span>
+                <span className="text-steel-400 text-sm mb-1">
+                  {plan.period}
+                </span>
               </div>
-              <p className="text-steel-400 text-sm mb-6 leading-relaxed">{plan.desc}</p>
+              <p className="text-steel-400 text-sm mb-6 leading-relaxed">
+                {plan.desc}
+              </p>
 
               <div className="space-y-3 mb-8">
                 {plan.features.map((f) => (

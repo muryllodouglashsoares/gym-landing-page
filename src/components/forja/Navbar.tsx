@@ -14,14 +14,15 @@ export function Navbar() {
 
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full max-w-[100vw]"
       style={{
         background: scrolled ? "rgba(10,10,10,0.96)" : "transparent",
         backdropFilter: scrolled ? "blur(12px)" : "none",
         borderBottom: scrolled ? "1px solid #222" : "1px solid transparent",
+        paddingTop: "env(safe-area-inset-top, 0px)",
       }}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between h-[72px]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex items-center justify-between h-[64px] sm:h-[72px]">
         <a href="#hero" className="flex items-center gap-3">
           <BrandMark />
         </a>
@@ -47,14 +48,16 @@ export function Navbar() {
 
         <button
           onClick={() => setOpen(!open)}
-          className="lg:hidden p-2 text-ice"
+          className="lg:hidden -mr-2.5 p-3 text-ice flex items-center justify-center"
           aria-label="Menu"
           aria-expanded={open}
         >
           <div className="w-6 h-5 flex flex-col justify-between">
             <span
               className="block h-0.5 bg-ice transition-all duration-300 origin-center"
-              style={{ transform: open ? "translateY(9px) rotate(45deg)" : "none" }}
+              style={{
+                transform: open ? "translateY(9px) rotate(45deg)" : "none",
+              }}
             />
             <span
               className="block h-0.5 bg-ice transition-all duration-300"
@@ -62,7 +65,9 @@ export function Navbar() {
             />
             <span
               className="block h-0.5 bg-ice transition-all duration-300 origin-center"
-              style={{ transform: open ? "translateY(-9px) rotate(-45deg)" : "none" }}
+              style={{
+                transform: open ? "translateY(-9px) rotate(-45deg)" : "none",
+              }}
             />
           </div>
         </button>

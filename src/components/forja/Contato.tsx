@@ -10,7 +10,12 @@ import {
   MAPS_EMBED_URL,
 } from "./data";
 import { IconPin, IconPhone, IconWhatsapp, IconInstagram } from "./icons";
-import { SectionLabel, SectionHeading, Reveal } from "./shared";
+import {
+  SectionLabel,
+  SectionHeading,
+  Reveal,
+  SECTION_PADDING,
+} from "./shared";
 import {
   contactSchema,
   CONTACT_FORM_DEFAULTS,
@@ -61,7 +66,7 @@ export function Contato() {
   ];
 
   return (
-    <section id="contato" className="py-24 lg:py-36 bg-charcoal">
+    <section id="contato" className={`${SECTION_PADDING} bg-charcoal`}>
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="grid lg:grid-cols-2 gap-16">
           <Reveal>
@@ -139,7 +144,7 @@ export function Contato() {
           </Reveal>
 
           <Reveal delayMs={100}>
-            <div className="border border-steel-700 bg-steel-900 p-8 lg:p-10">
+            <div className="border border-steel-700 bg-steel-900 p-6 sm:p-8 lg:p-10">
               <h3
                 className="font-display font-black text-ice uppercase mb-6"
                 style={{ fontSize: "1.6rem", letterSpacing: "0.05em" }}
@@ -187,7 +192,7 @@ export function Contato() {
                     )}
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <input
                         type="email"

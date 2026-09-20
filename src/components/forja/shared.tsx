@@ -1,4 +1,20 @@
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from "react";
+
+/**
+ * Espaçamento vertical padrão das seções, com escala progressiva por
+ * breakpoint (mobile compacto → desktop atual). Centralizado aqui para que
+ * todas as seções compartilhem a mesma decisão de responsividade.
+ */
+export const SECTION_PADDING = "py-16 sm:py-20 md:py-24 lg:py-36";
+
+/** Variante usada apenas no CTA final, que tradicionalmente tem py maior. */
+export const SECTION_PADDING_LG = "py-16 sm:py-24 md:py-28 lg:py-40";
 
 /** Rótulo de seção com traços laterais (padrão do design FORJA). */
 export function SectionLabel({ children }: { children: ReactNode }) {
@@ -31,8 +47,8 @@ export function SectionHeading({
 }) {
   return (
     <h2
-      className={`font-display font-black text-ice uppercase ${tight ? "leading-[0.9] " : ""}${className}`}
-      style={{ fontSize: "clamp(2.4rem, 5vw, 3.8rem)" }}
+      className={`font-display font-black text-ice uppercase break-words ${tight ? "leading-[0.9] " : ""}${className}`}
+      style={{ fontSize: "clamp(2.1rem, 6vw, 3.8rem)" }}
     >
       {children}
     </h2>
@@ -47,10 +63,14 @@ export function BrandMark() {
         className="w-8 h-8 flex items-center justify-center bg-ember"
         style={{ clipPath: "polygon(0 0, 100% 0, 100% 78%, 50% 100%, 0 78%)" }}
       >
-        <span className="font-display font-black text-charcoal text-sm leading-none">F</span>
+        <span className="font-display font-black text-charcoal text-sm leading-none">
+          F
+        </span>
       </div>
       <div>
-        <span className="font-display font-black text-ice text-xl tracking-[0.22em]">FORJA</span>
+        <span className="font-display font-black text-ice text-xl tracking-[0.22em]">
+          FORJA
+        </span>
         <div className="text-steel-400 text-[9px] tracking-[0.4em] uppercase -mt-0.5">
           Training Studio
         </div>
@@ -106,7 +126,6 @@ export function AnimatedNumber({
     );
     observer.observe(node);
     return () => observer.disconnect();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, decimals, durationMs]);
 
   return (
@@ -163,13 +182,17 @@ export function Reveal({
   }, []);
 
   const initClass = variant === "fade" ? "reveal-fade-init" : "reveal-init";
-  const visibleClass = variant === "fade" ? "reveal-fade-visible" : "reveal-visible";
+  const visibleClass =
+    variant === "fade" ? "reveal-fade-visible" : "reveal-visible";
 
   return (
     <div
       ref={ref}
       className={`${initClass} ${visible ? visibleClass : ""} ${className}`.trim()}
-      style={{ ...style, ...(delayMs ? { animationDelay: `${delayMs}ms` } : {}) }}
+      style={{
+        ...style,
+        ...(delayMs ? { animationDelay: `${delayMs}ms` } : {}),
+      }}
     >
       {children}
     </div>

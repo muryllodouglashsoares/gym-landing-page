@@ -1,13 +1,18 @@
 import { useState } from "react";
 import { FAQS } from "./data";
 import { IconChevron } from "./icons";
-import { SectionLabel, SectionHeading, Reveal } from "./shared";
+import {
+  SectionLabel,
+  SectionHeading,
+  Reveal,
+  SECTION_PADDING,
+} from "./shared";
 
 export function Faq() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="py-24 lg:py-36 bg-steel-900">
+    <section id="faq" className={`${SECTION_PADDING} bg-steel-900`}>
       <div className="max-w-3xl mx-auto px-6 lg:px-12">
         <Reveal className="text-center mb-14">
           <SectionLabel>FAQ</SectionLabel>
@@ -20,7 +25,12 @@ export function Faq() {
 
         <div className="space-y-0 border-t border-steel-700">
           {FAQS.map(({ q, a }, i) => (
-            <Reveal key={q} delayMs={i * 50} variant="fade" className="border-b border-steel-700">
+            <Reveal
+              key={q}
+              delayMs={i * 50}
+              variant="fade"
+              className="border-b border-steel-700"
+            >
               <button
                 className="w-full flex items-center justify-between gap-4 py-5 text-left"
                 onClick={() => setOpen(open === i ? null : i)}
@@ -40,8 +50,14 @@ export function Faq() {
                   <IconChevron open={open === i} />
                 </span>
               </button>
-              <div className="accordion-content" style={{ maxHeight: open === i ? "300px" : "0" }}>
-                <p className="text-steel-400 text-sm leading-relaxed pb-5" style={{ fontWeight: 300 }}>
+              <div
+                className="accordion-content"
+                style={{ maxHeight: open === i ? "300px" : "0" }}
+              >
+                <p
+                  className="text-steel-400 text-sm leading-relaxed pb-5"
+                  style={{ fontWeight: 300 }}
+                >
                   {a}
                 </p>
               </div>

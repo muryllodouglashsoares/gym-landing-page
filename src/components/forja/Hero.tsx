@@ -2,14 +2,70 @@ import { IMAGES, IMAGE_SRCSETS, IMAGE_DIMENSIONS, HERO_STATS } from "./data";
 import { AnimatedNumber } from "./shared";
 
 const EMBERS = [
-  { left: "18%", bottom: "12%", dur: "3.2s", delay: "0s", drift: "14px", size: 3 },
-  { left: "26%", bottom: "8%", dur: "4s", delay: "0.6s", drift: "-10px", size: 2 },
-  { left: "34%", bottom: "15%", dur: "3.6s", delay: "1.2s", drift: "18px", size: 2 },
-  { left: "42%", bottom: "10%", dur: "2.8s", delay: "0.3s", drift: "-14px", size: 3 },
-  { left: "50%", bottom: "6%", dur: "4.2s", delay: "1.8s", drift: "10px", size: 2 },
-  { left: "58%", bottom: "14%", dur: "3.4s", delay: "0.9s", drift: "-18px", size: 2 },
-  { left: "64%", bottom: "9%", dur: "3.8s", delay: "2.1s", drift: "12px", size: 3 },
-  { left: "72%", bottom: "11%", dur: "4.4s", delay: "0.4s", drift: "-8px", size: 2 },
+  {
+    left: "18%",
+    bottom: "12%",
+    dur: "3.2s",
+    delay: "0s",
+    drift: "14px",
+    size: 3,
+  },
+  {
+    left: "26%",
+    bottom: "8%",
+    dur: "4s",
+    delay: "0.6s",
+    drift: "-10px",
+    size: 2,
+  },
+  {
+    left: "34%",
+    bottom: "15%",
+    dur: "3.6s",
+    delay: "1.2s",
+    drift: "18px",
+    size: 2,
+  },
+  {
+    left: "42%",
+    bottom: "10%",
+    dur: "2.8s",
+    delay: "0.3s",
+    drift: "-14px",
+    size: 3,
+  },
+  {
+    left: "50%",
+    bottom: "6%",
+    dur: "4.2s",
+    delay: "1.8s",
+    drift: "10px",
+    size: 2,
+  },
+  {
+    left: "58%",
+    bottom: "14%",
+    dur: "3.4s",
+    delay: "0.9s",
+    drift: "-18px",
+    size: 2,
+  },
+  {
+    left: "64%",
+    bottom: "9%",
+    dur: "3.8s",
+    delay: "2.1s",
+    drift: "12px",
+    size: 3,
+  },
+  {
+    left: "72%",
+    bottom: "11%",
+    dur: "4.4s",
+    delay: "0.4s",
+    drift: "-8px",
+    size: 2,
+  },
 ];
 
 function EmberParticles() {
@@ -41,6 +97,7 @@ export function Hero() {
     <section
       id="hero"
       className="relative min-h-screen flex items-center overflow-hidden bg-charcoal"
+      style={{ minHeight: "100svh" }}
     >
       <div className="absolute inset-0">
         <img
@@ -55,8 +112,17 @@ export function Hero() {
           className="w-full h-full object-cover"
           style={{ filter: "brightness(0.22) saturate(0.6)" }}
         />
+        {/* Mobile/tablet: texto ocupa toda a largura, então o contraste precisa
+            ser mais uniforme (em vez do degradê lateral pensado para desktop). */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 md:hidden"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.75) 45%, rgba(10,10,10,0.97) 100%)",
+          }}
+        />
+        <div
+          className="absolute inset-0 hidden md:block"
           style={{
             background:
               "linear-gradient(to right, rgba(10,10,10,0.98) 35%, rgba(10,10,10,0.75) 65%, rgba(10,10,10,0.5) 100%)",
@@ -64,7 +130,10 @@ export function Hero() {
         />
         <div
           className="absolute inset-0"
-          style={{ background: "linear-gradient(to top, rgba(10,10,10,1) 0%, transparent 40%)" }}
+          style={{
+            background:
+              "linear-gradient(to top, rgba(10,10,10,1) 0%, transparent 40%)",
+          }}
         />
       </div>
 
@@ -75,7 +144,8 @@ export function Hero() {
           left: "25%",
           width: "520px",
           height: "280px",
-          background: "radial-gradient(ellipse, rgba(249,115,22,0.12) 0%, transparent 70%)",
+          background:
+            "radial-gradient(ellipse, rgba(249,115,22,0.12) 0%, transparent 70%)",
         }}
       />
       <div
@@ -85,7 +155,8 @@ export function Hero() {
           right: "20%",
           width: "300px",
           height: "300px",
-          background: "radial-gradient(ellipse, rgba(249,115,22,0.06) 0%, transparent 70%)",
+          background:
+            "radial-gradient(ellipse, rgba(249,115,22,0.06) 0%, transparent 70%)",
         }}
       />
 
@@ -96,13 +167,15 @@ export function Hero() {
         style={{
           backgroundImage:
             "repeating-linear-gradient(115deg, rgba(255,255,255,0.025) 0, rgba(255,255,255,0.025) 1px, transparent 0, transparent 3px)",
-          WebkitMaskImage: "linear-gradient(to bottom, transparent, black 30%, black 70%, transparent)",
-          maskImage: "linear-gradient(to bottom, transparent, black 30%, black 70%, transparent)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, transparent, black 30%, black 70%, transparent)",
+          maskImage:
+            "linear-gradient(to bottom, transparent, black 30%, black 70%, transparent)",
         }}
       />
       <EmberParticles />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 w-full pt-32 pb-28">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 w-full pt-24 sm:pt-28 lg:pt-32 pb-16 sm:pb-20 lg:pb-28">
         <div className="grid lg:grid-cols-[1fr_auto] gap-12 items-center">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-3 border border-ember/30 px-4 py-2 mb-8">
@@ -116,8 +189,8 @@ export function Hero() {
             </div>
 
             <h1
-              className="font-display font-black text-ice uppercase leading-[0.88] mb-7"
-              style={{ fontSize: "clamp(3.8rem, 9vw, 7rem)" }}
+              className="font-display font-black text-ice uppercase leading-[0.88] mb-7 break-words"
+              style={{ fontSize: "clamp(2.75rem, 11vw, 7rem)" }}
             >
               NÃO
               <br />
@@ -130,8 +203,8 @@ export function Hero() {
               className="text-steel-300 leading-relaxed mb-10 max-w-lg"
               style={{ fontSize: "1.05rem", fontWeight: 300 }}
             >
-              Aqui, cada treino é um teste. Cada gota de suor, uma vitória. Você não vem apenas
-              malhar — vem se transformar de dentro pra fora.
+              Aqui, cada treino é um teste. Cada gota de suor, uma vitória. Você
+              não vem apenas malhar — vem se transformar de dentro pra fora.
             </p>
 
             <div className="flex flex-wrap gap-4 mb-14">
@@ -149,14 +222,19 @@ export function Hero() {
               </a>
             </div>
 
-            <div className="flex gap-10 flex-wrap">
+            <div className="flex gap-6 sm:gap-8 lg:gap-10 flex-wrap">
               {HERO_STATS.map(({ value, decimals, prefix, suffix, label }) => (
                 <div key={label} className="border-l-2 border-ember/30 pl-4">
                   <div
                     className="font-display font-black text-ember leading-tight"
                     style={{ fontSize: "1.75rem" }}
                   >
-                    <AnimatedNumber value={value} decimals={decimals} prefix={prefix} suffix={suffix} />
+                    <AnimatedNumber
+                      value={value}
+                      decimals={decimals}
+                      prefix={prefix}
+                      suffix={suffix}
+                    />
                   </div>
                   <div className="text-steel-400 text-xs uppercase tracking-widest mt-0.5">
                     {label}
@@ -176,7 +254,10 @@ export function Hero() {
             />
             <div
               className="absolute inset-0 pointer-events-none"
-              style={{ border: "1px solid #222", transform: "translate(10px, 10px)" }}
+              style={{
+                border: "1px solid #222",
+                transform: "translate(10px, 10px)",
+              }}
             />
             <img
               src={IMAGES.heroAthlete}
@@ -187,7 +268,9 @@ export function Hero() {
               alt="Atleta em treino intenso na FORJA"
               loading="lazy"
               className="relative w-72 xl:w-80 object-cover"
-              style={{ filter: "grayscale(70%) contrast(1.15) brightness(0.85)" }}
+              style={{
+                filter: "grayscale(70%) contrast(1.15) brightness(0.85)",
+              }}
             />
             <div
               className="absolute inset-0"
@@ -201,7 +284,9 @@ export function Hero() {
       </div>
 
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-scroll-pulse">
-        <span className="text-steel-400 text-[10px] uppercase tracking-[0.4em]">Role</span>
+        <span className="text-steel-400 text-[10px] uppercase tracking-[0.4em]">
+          Role
+        </span>
         <div className="w-px h-12 bg-gradient-to-b from-ember/50 to-transparent" />
       </div>
     </section>

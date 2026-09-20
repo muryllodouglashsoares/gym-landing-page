@@ -1,9 +1,14 @@
 import { TEAM, IMAGES, IMAGE_SRCSETS, IMAGE_DIMENSIONS } from "./data";
-import { SectionLabel, SectionHeading, Reveal } from "./shared";
+import {
+  SectionLabel,
+  SectionHeading,
+  Reveal,
+  SECTION_PADDING,
+} from "./shared";
 
 export function Equipe() {
   return (
-    <section id="equipe" className="py-24 lg:py-36 bg-charcoal">
+    <section id="equipe" className={`${SECTION_PADDING} bg-charcoal`}>
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <Reveal className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-14">
           <div>
@@ -14,15 +19,26 @@ export function Equipe() {
               PARA <span className="text-ember">GUIAR.</span>
             </SectionHeading>
           </div>
-          <p className="text-steel-400 max-w-xs leading-relaxed" style={{ fontWeight: 300 }}>
-            Nosso time é selecionado por excelência técnica e vocação para transformar vidas.
+          <p
+            className="text-steel-400 max-w-xs leading-relaxed"
+            style={{ fontWeight: 300 }}
+          >
+            Nosso time é selecionado por excelência técnica e vocação para
+            transformar vidas.
           </p>
         </Reveal>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {TEAM.map(({ key, name, role, bio }, i) => (
-            <Reveal key={name} delayMs={i * 90} className="card-lift border border-steel-700 group overflow-hidden">
-              <div className="relative overflow-hidden" style={{ height: "320px" }}>
+            <Reveal
+              key={name}
+              delayMs={i * 90}
+              className="card-lift border border-steel-700 group overflow-hidden"
+            >
+              <div
+                className="relative overflow-hidden"
+                style={{ height: "320px" }}
+              >
                 <img
                   src={IMAGES[key]}
                   srcSet={IMAGE_SRCSETS[key]}

@@ -1,9 +1,15 @@
 import { IMAGES, IMAGE_SRCSETS, IMAGE_DIMENSIONS, TIMELINE } from "./data";
-import { SectionLabel, SectionHeading, Reveal, AnimatedNumber } from "./shared";
+import {
+  SectionLabel,
+  SectionHeading,
+  Reveal,
+  AnimatedNumber,
+  SECTION_PADDING,
+} from "./shared";
 
 export function About() {
   return (
-    <section id="sobre" className="py-24 lg:py-36 bg-charcoal">
+    <section id="sobre" className={`${SECTION_PADDING} bg-charcoal`}>
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           <Reveal variant="fade" className="relative">
@@ -36,11 +42,14 @@ export function About() {
               width={IMAGE_DIMENSIONS.about.width}
               height={IMAGE_DIMENSIONS.about.height}
               alt="Interior da FORJA Training Studio com equipamentos premium"
-              className="w-full object-cover"
-              style={{ height: "520px", filter: "brightness(0.85) saturate(0.8)" }}
+              className="w-full h-[320px] sm:h-[420px] lg:h-[520px] object-cover"
+              style={{ filter: "brightness(0.85) saturate(0.8)" }}
               loading="lazy"
             />
-            <div className="absolute bg-ember text-charcoal p-5" style={{ bottom: 32, right: -20 }}>
+            <div
+              className="absolute bg-ember text-charcoal p-5"
+              style={{ bottom: 32, right: -20 }}
+            >
               <div
                 className="font-display font-black leading-none mb-0.5"
                 style={{ fontSize: "2.5rem" }}
@@ -63,19 +72,29 @@ export function About() {
               <br />
               PELO <span className="text-ember">FERRO.</span>
             </SectionHeading>
-            <p className="text-steel-300 leading-relaxed mb-5" style={{ fontWeight: 300 }}>
-              A FORJA nasceu de uma convicção: o treinamento de alta performance não deveria ser
-              exclusividade de atletas profissionais. Cada pessoa que entra aqui merece o melhor —
-              equipamentos, metodologia e suporte humano.
+            <p
+              className="text-steel-300 leading-relaxed mb-5"
+              style={{ fontWeight: 300 }}
+            >
+              A FORJA nasceu de uma convicção: o treinamento de alta performance
+              não deveria ser exclusividade de atletas profissionais. Cada
+              pessoa que entra aqui merece o melhor — equipamentos, metodologia
+              e suporte humano.
             </p>
-            <p className="text-steel-300 leading-relaxed mb-10" style={{ fontWeight: 300 }}>
-              Nossa missão é simples: transformar limitações em combustível. Você chega como é. Sai
-              como pode ser.
+            <p
+              className="text-steel-300 leading-relaxed mb-10"
+              style={{ fontWeight: 300 }}
+            >
+              Nossa missão é simples: transformar limitações em combustível.
+              Você chega como é. Sai como pode ser.
             </p>
 
             <div className="grid grid-cols-3 gap-3 mb-12">
               {["Disciplina", "Performance", "Resultado"].map((pillar) => (
-                <div key={pillar} className="border border-steel-700 px-3 py-3 text-center">
+                <div
+                  key={pillar}
+                  className="border border-steel-700 px-3 py-3 text-center"
+                >
                   <span className="font-display font-bold text-ice text-xs uppercase tracking-widest">
                     {pillar}
                   </span>
@@ -100,7 +119,9 @@ export function About() {
                     <div className="font-display font-bold text-ice text-sm uppercase tracking-wide mb-1.5 mt-0.5">
                       {title}
                     </div>
-                    <div className="text-steel-400 text-sm leading-relaxed">{desc}</div>
+                    <div className="text-steel-400 text-sm leading-relaxed">
+                      {desc}
+                    </div>
                   </div>
                 </div>
               ))}

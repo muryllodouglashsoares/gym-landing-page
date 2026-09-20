@@ -1,7 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { GALLERY, IMAGES, IMAGE_SRCSETS, IMAGE_DIMENSIONS } from "./data";
 import { IconClose, IconExpand } from "./icons";
-import { SectionLabel, SectionHeading, Reveal } from "./shared";
+import {
+  SectionLabel,
+  SectionHeading,
+  Reveal,
+  SECTION_PADDING,
+} from "./shared";
 
 export function Galeria() {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
@@ -34,11 +39,10 @@ export function Galeria() {
     };
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   return (
-    <section id="galeria" className="py-24 lg:py-36 bg-steel-900">
+    <section id="galeria" className={`${SECTION_PADDING} bg-steel-900`}>
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <Reveal className="text-center mb-14">
           <SectionLabel>Galeria</SectionLabel>
@@ -49,9 +53,14 @@ export function Galeria() {
           </SectionHeading>
         </Reveal>
 
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 auto-rows-[200px]">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 auto-rows-[130px] sm:auto-rows-[160px] md:auto-rows-[180px] lg:auto-rows-[200px]">
           {GALLERY.map(({ key, alt, span }, index) => (
-            <Reveal key={key} delayMs={index * 50} variant="fade" className={span}>
+            <Reveal
+              key={key}
+              delayMs={index * 50}
+              variant="fade"
+              className={span}
+            >
               <button
                 type="button"
                 onClick={(e) => openLightbox(index, e.currentTarget)}
@@ -94,7 +103,11 @@ export function Galeria() {
         >
           <button
             ref={closeButtonRef}
-            className="absolute top-6 right-6 text-ice hover:text-ember transition-colors p-2"
+            className="absolute text-ice hover:text-ember transition-colors p-3"
+            style={{
+              top: "max(1.25rem, env(safe-area-inset-top, 0px))",
+              right: "max(1.25rem, env(safe-area-inset-right, 0px))",
+            }}
             onClick={closeLightbox}
             aria-label="Fechar galeria"
           >

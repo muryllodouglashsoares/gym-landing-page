@@ -1,5 +1,17 @@
-import { IconDumbbell, IconFlame, IconCross, IconUser, IconHeart, IconClipboard } from "./icons";
-import { SectionLabel, SectionHeading, Reveal } from "./shared";
+import {
+  IconDumbbell,
+  IconFlame,
+  IconCross,
+  IconUser,
+  IconHeart,
+  IconClipboard,
+} from "./icons";
+import {
+  SectionLabel,
+  SectionHeading,
+  Reveal,
+  SECTION_PADDING,
+} from "./shared";
 
 const MODALIDADES = [
   {
@@ -36,7 +48,7 @@ const MODALIDADES = [
 
 export function Modalidades() {
   return (
-    <section id="modalidades" className="py-24 lg:py-36 bg-steel-900">
+    <section id="modalidades" className={`${SECTION_PADDING} bg-steel-900`}>
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <Reveal className="text-center mb-16">
           <SectionLabel>Modalidades</SectionLabel>
@@ -52,7 +64,7 @@ export function Modalidades() {
             <Reveal
               key={title}
               delayMs={i * 70}
-              className="card-lift bg-steel-900 p-8 border border-transparent group cursor-pointer"
+              className="card-lift bg-steel-900 p-6 sm:p-8 border border-transparent group cursor-pointer"
             >
               <div className="text-steel-400 group-hover:text-ember transition-colors mb-5">
                 {icon}
