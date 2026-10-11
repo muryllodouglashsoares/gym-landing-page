@@ -31,35 +31,50 @@ export function Faq() {
               variant="fade"
               className="border-b border-steel-700"
             >
-              <button
-                className="w-full flex items-center justify-between gap-4 py-5 text-left"
-                onClick={() => setOpen(open === i ? null : i)}
-                aria-expanded={open === i}
-              >
-                <span
-                  className={`font-display font-bold text-sm uppercase tracking-wide transition-colors ${
-                    open === i ? "text-ember" : "text-ice"
-                  }`}
-                  style={{ letterSpacing: "0.04em" }}
+              <h3>
+                <button
+                  type="button"
+                  id={`faq-pergunta-${i}`}
+                  className="w-full flex items-center justify-between gap-4 py-5 text-left"
+                  onClick={() => setOpen(open === i ? null : i)}
+                  aria-expanded={open === i}
+                  aria-controls={`faq-resposta-${i}`}
                 >
-                  {q}
-                </span>
-                <span
-                  className={`flex-shrink-0 transition-colors ${open === i ? "text-ember" : "text-steel-400"}`}
-                >
-                  <IconChevron open={open === i} />
-                </span>
-              </button>
+                  <span
+                    className={`font-display font-bold text-sm uppercase tracking-wide transition-colors ${
+                      open === i ? "text-ember" : "text-ice"
+                    }`}
+                    style={{ letterSpacing: "0.04em" }}
+                  >
+                    {q}
+                  </span>
+                  <span
+                    className={`flex-shrink-0 transition-colors ${open === i ? "text-ember" : "text-steel-400"}`}
+                  >
+                    <IconChevron open={open === i} />
+                  </span>
+                </button>
+              </h3>
+              {/* Altura animada via grid (0fr → 1fr): a resposta nunca é
+                  cortada, mesmo com texto longo, zoom ou fonte ampliada.
+                  `inert` esconde a resposta fechada do teclado e dos
+                  leitores de tela. */}
               <div
+                id={`faq-resposta-${i}`}
+                role="region"
+                aria-labelledby={`faq-pergunta-${i}`}
                 className="accordion-content"
-                style={{ maxHeight: open === i ? "300px" : "0" }}
+                data-open={open === i}
+                inert={open !== i}
               >
-                <p
-                  className="text-steel-400 text-sm leading-relaxed pb-5"
-                  style={{ fontWeight: 300 }}
-                >
-                  {a}
-                </p>
+                <div>
+                  <p
+                    className="text-steel-400 text-sm leading-relaxed pb-5"
+                    style={{ fontWeight: 300 }}
+                  >
+                    {a}
+                  </p>
+                </div>
               </div>
             </Reveal>
           ))}

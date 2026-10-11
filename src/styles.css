@@ -165,18 +165,24 @@
 
 html {
   scroll-behavior: smooth;
-  max-width: 100%;
-  overflow-x: hidden;
 }
 
+/*
+ * `overflow-x: clip` (e não `hidden`) no body, e nada no html: com
+ * `overflow: hidden` em html E body ao mesmo tempo o body vira um
+ * contêiner de rolagem e `position: sticky` deixa de funcionar (era o caso
+ * da coluna fixa de "Por Que FORJA", `lg:sticky`). `clip` não cria
+ * contêiner de rolagem. Na revisão estática não foi encontrado nenhum
+ * elemento que provoque overflow horizontal; isto fica apenas como rede de
+ * segurança.
+ */
 body {
   background-color: #0a0a0a;
   color: #f5f0eb;
   font-family: "Outfit", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  max-width: 100%;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 ::-webkit-scrollbar {
@@ -226,11 +232,15 @@ body {
 .reveal-fade-init { opacity: 0; }
 .reveal-fade-visible { animation: fadeIn 0.6s ease-out forwards; }
 
+/* Acordeão (FAQ): a altura anima de 0fr para 1fr, então não há altura
+   máxima fixa que possa cortar respostas longas. */
 .accordion-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s;
 }
+.accordion-content[data-open="true"] { grid-template-rows: 1fr; }
+.accordion-content > * { overflow: hidden; min-height: 0; }
 
 .lightbox-backdrop {
   position: fixed;
@@ -281,4 +291,5 @@ body {
   .reveal-init,
   .reveal-fade-init { opacity: 1; transform: none; }
   .card-lift:hover { transform: none; }
+  .accordion-content { transition: none; }
 }

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { GALLERY, IMAGES, IMAGE_SRCSETS, IMAGE_DIMENSIONS } from "./data";
 import { IconClose, IconExpand } from "./icons";
 import {
@@ -21,25 +21,38 @@ export function Galeria() {
     setLightboxIndex(index);
   };
 
-  const closeLightbox = () => {
+  const closeLightbox = useCallback(() => {
     setLightboxIndex(null);
     // Devolve o foco para o item da galeria que abriu o lightbox.
     lastTriggerRef.current?.focus();
-  };
+  }, []);
 
   // Fecha com Esc e move o foco para o botão de fechar assim que o
-  // lightbox abre, para manter a navegação por teclado previsível.
+  // lightbox abre, para manter a navegação por teclado previsível. O
+  // único elemento focável do diálogo é o botão de fechar, então Tab
+  // mantém o foco nele (o conteúdo atrás do modal fica inalcançável) e a
+  // rolagem da página é travada enquanto o lightbox está aberto.
   useEffect(() => {
     if (!isOpen) return;
 
     closeButtonRef.current?.focus();
 
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") closeLightbox();
+      if (e.key === "Tab") {
+        e.preventDefault();
+        closeButtonRef.current?.focus();
+      }
     };
     document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
-  }, [isOpen]);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isOpen, closeLightbox]);
 
   return (
     <section id="galeria" className={`${SECTION_PADDING} bg-steel-900`}>

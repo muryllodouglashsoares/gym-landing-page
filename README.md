@@ -112,6 +112,7 @@ bun run build      # build de produção
 bun run preview    # preview do build
 bun run lint         # eslint
 bun run format       # prettier
+bun run test         # testes do formulário (node:test, requer Node 22+)
 ```
 
 ### Configuração de ambiente
@@ -131,7 +132,9 @@ src/
 │   └── ui/               # Componentes shadcn/ui reutilizáveis
 ├── lib/
 │   ├── contact-schema.ts    # Schema Zod compartilhado (cliente + servidor)
-│   └── contact.server.ts    # Server function que recebe e encaminha o lead
+│   ├── contact-handler.ts   # Lógica do envio (honeypot, validação, webhook, timeout) — testável
+│   ├── contact-handler.test.ts  # Testes com fetch simulado (nunca tocam o webhook real)
+│   └── contact.server.ts    # Server function que lê CONTACT_WEBHOOK_URL e delega ao handler
 ├── routes/               # Rotas (TanStack Router)
 └── styles.css              # Design tokens e estilos globais
 ```
@@ -139,19 +142,25 @@ src/
 ## Decisões técnicas
 
 - **Dados fictícios, mas realistas**: em vez de `lorem ipsum`, todo o conteúdo (planos, FAQ, timeline, equipe) foi escrito como copy real de negócio, para demonstrar capacidade de copywriting e estruturação de informação — não apenas de código.
-- **Sem uso indevido de prova social**: os números de avaliação exibidos no JSON-LD refletem um cenário fictício e não devem ser interpretados como dados reais de um negócio existente.
+- **Sem uso indevido de prova social**: o JSON-LD não declara `aggregateRating`. Depoimentos e números exibidos na página são fictícios e não devem ser interpretados como dados reais de um negócio existente.
+- **URL canônica**: `canonical`, `og:url`, JSON-LD, `robots.txt` e `sitemap.xml` apontam para a URL da demo (Cloudflare Workers), já que a FORJA fictícia não possui domínio próprio. Se um domínio for configurado, atualize `SITE_URL` em `src/routes/index.tsx`, `public/robots.txt` e `public/sitemap.xml`.
 - **Formulário funcional de verdade**: a decisão de conectar a um webhook real (em vez de simular o envio) foi proposital, para demonstrar o fluxo completo de captura de lead — do front-end até a planilha.
 
 ## Formulário de contato: formulário → Make → planilha
 
-O formulário de contato (`src/lib/contact.server.ts`) não é apenas front-end — está integrado de ponta a ponta:
+O formulário de contato (`src/lib/contact.server.ts` + `src/lib/contact-handler.ts`) não é apenas front-end — está integrado de ponta a ponta:
 
 1. O usuário preenche e envia o formulário (React Hook Form + Zod cuidam da validação no cliente).
 2. O front-end chama `submitContactRequest`, uma server function do TanStack Start — o código roda dentro do Cloudflare Worker, nunca no navegador.
-3. A server function primeiro checa o campo honeypot (`empresa`): se estiver preenchido, é tratado como bot e a resposta finge sucesso sem encaminhar nada.
-4. Passando por essa checagem, os dados são reenviados via `POST` (JSON) para a URL definida em `CONTACT_WEBHOOK_URL` (secret do Worker) — o cliente nunca acessa essa URL diretamente.
+3. O servidor primeiro checa o campo honeypot (`empresa`), antes de qualquer validação: se estiver preenchido, é tratado como bot e a resposta finge sucesso sem encaminhar nada (nem distingue "detectado" de "dados inválidos").
+4. Em seguida valida os dados com o mesmo schema Zod do cliente e os reenvia via `POST` (JSON, com timeout de 8 s) para a URL definida em `CONTACT_WEBHOOK_URL` (secret do Worker, aceita apenas `https`) — o cliente nunca acessa essa URL diretamente.
 5. Do lado do Make, um Custom Webhook recebe a requisição e grava cada mensagem recebida como uma nova linha em uma planilha do Google Sheets (módulo *Google Sheets → Add a Row*), com os dados do lead (nome, contato, mensagem) e metadados de origem/data.
-6. Se `CONTACT_WEBHOOK_URL` não estiver configurada, a submissão é registrada apenas no log do servidor e uma mensagem de erro é retornada ao usuário — evitando perder o lead silenciosamente sem que ninguém perceba a falha de configuração.
+6. Se `CONTACT_WEBHOOK_URL` estiver ausente/inválida, ou se o webhook falhar (erro HTTP, rede, timeout), o servidor responde `{ ok: false }` com mensagem genérica — o usuário nunca vê "mensagem enviada" sem que o envio tenha sido concluído. O log registra só o motivo (sem URL e sem dados do lead, para não expor dados pessoais).
+
+> **Observações de operação**
+> - No módulo *Add a Row* do Make, prefira gravar os valores como texto (*Raw*), para que conteúdo digitado por usuários iniciando com `=`, `+`, `-` ou `@` não seja interpretado como fórmula pelo Google Sheets.
+> - O endpoint não tem limitação de taxa própria (Workers não oferecem armazenamento de estado sem serviço adicional). Se houver abuso, configure uma regra de *Rate Limiting*/WAF da Cloudflare para a rota das server functions.
+> - Navegadores com preenchimento automático podem, raramente, preencher o honeypot (`empresa`) de um usuário real; nesse caso a mensagem é descartada em silêncio. O campo usa `autocomplete="off"` para reduzir esse risco.
 
 Ver a seção [Configuração de ambiente](#configuração-de-ambiente) para configurar o webhook.
 

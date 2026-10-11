@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://forjatraining.com.br/sitemap.xml
+Sitemap: https://gym-landing-page.muryllodouglash-soares.workers.dev/sitemap.xml

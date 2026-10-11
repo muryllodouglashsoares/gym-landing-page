@@ -72,10 +72,16 @@ export function Planos() {
                 ))}
                 {plan.missing.map((m) => (
                   <div key={m} className="flex items-start gap-3 opacity-30">
-                    <span className="text-steel-500 mt-0.5 flex-shrink-0 text-sm leading-none">
+                    <span
+                      aria-hidden="true"
+                      className="text-steel-500 mt-0.5 flex-shrink-0 text-sm leading-none"
+                    >
                       —
                     </span>
-                    <span className="text-steel-500 text-sm">{m}</span>
+                    <span className="text-steel-500 text-sm">
+                      <span className="sr-only">Não incluso: </span>
+                      {m}
+                    </span>
                   </div>
                 ))}
               </div>

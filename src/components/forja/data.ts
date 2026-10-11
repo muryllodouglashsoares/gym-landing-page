@@ -262,6 +262,9 @@ const whatsappDigits = phoneDigits.startsWith("55")
   ? phoneDigits
   : `55${phoneDigits}`;
 
+/** Telefone em formato internacional (E.164), para dados estruturados. */
+export const PHONE_E164 = `+${whatsappDigits}`;
+
 export const WHATSAPP_URL = `https://wa.me/${whatsappDigits}?text=${encodeURIComponent(
   "Olá! Gostaria de agendar uma aula experimental na FORJA.",
 )}`;

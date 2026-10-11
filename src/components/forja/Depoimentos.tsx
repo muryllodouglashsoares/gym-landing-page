@@ -90,20 +90,26 @@ export function Depoimentos() {
           </div>
         </Reveal>
 
-        <div className="flex justify-center gap-2 mt-6">
+        <div className="flex justify-center mt-4">
           {TESTIMONIALS.map((t, i) => (
             <button
               key={t.name}
               onClick={() => setIndex(i)}
               aria-label={`Ver depoimento de ${t.name}`}
               aria-current={i === index ? "true" : undefined}
-              className="transition-all duration-300"
-              style={{
-                width: i === index ? 28 : 8,
-                height: 3,
-                background: i === index ? "#f97316" : "#606060",
-              }}
-            />
+              // Área de toque ≥ 24px (WCAG 2.5.8); o traço visível continua
+              // com o mesmo tamanho dentro do <span>.
+              className="px-2 py-[11px]"
+            >
+              <span
+                className="block transition-all duration-300"
+                style={{
+                  width: i === index ? 28 : 8,
+                  height: 3,
+                  background: i === index ? "#f97316" : "#606060",
+                }}
+              />
+            </button>
           ))}
         </div>
       </div>

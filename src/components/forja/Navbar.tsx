@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NAV_LINKS } from "./data";
 import { BrandMark } from "./shared";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -12,8 +13,21 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Esc fecha o menu móvel e devolve o foco ao botão que o abriu.
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setOpen(false);
+      menuButtonRef.current?.focus();
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
   return (
     <nav
+      aria-label="Principal"
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full max-w-[100vw]"
       style={{
         background: scrolled ? "rgba(10,10,10,0.96)" : "transparent",
@@ -47,10 +61,13 @@ export function Navbar() {
         </a>
 
         <button
+          ref={menuButtonRef}
+          type="button"
           onClick={() => setOpen(!open)}
           className="lg:hidden -mr-2.5 p-3 text-ice flex items-center justify-center"
           aria-label="Menu"
           aria-expanded={open}
+          aria-controls="menu-mobile"
         >
           <div className="w-6 h-5 flex flex-col justify-between">
             <span
@@ -73,9 +90,17 @@ export function Navbar() {
         </button>
       </div>
 
+      {/* `inert` enquanto fechado: os links ocultos não entram na ordem de
+          tabulação nem são lidos por tecnologias assistivas. */}
       <div
+        id="menu-mobile"
+        inert={!open}
         className="lg:hidden overflow-hidden transition-all duration-300 bg-steel-900 border-t border-steel-700"
-        style={{ maxHeight: open ? "400px" : "0" }}
+        style={{
+          // Limita à altura útil da tela (evita corte em paisagem/zoom).
+          maxHeight: open ? "calc(100dvh - 4rem)" : "0",
+          overflowY: open ? "auto" : "hidden",
+        }}
       >
         <div className="px-6 py-6 space-y-1">
           {NAV_LINKS.map((link) => (

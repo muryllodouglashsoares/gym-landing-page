@@ -23,7 +23,7 @@ export function CtaFinal() {
       />
       <Reveal className="relative max-w-4xl mx-auto px-6 lg:px-12 text-center">
         <div className="inline-block border border-charcoal/20 font-display font-bold text-charcoal text-[10px] uppercase tracking-[0.4em] px-5 py-2 mb-8">
-          Começe Agora · Primeira Semana Grátis
+          Comece Agora · Primeira Aula Grátis
         </div>
         <h2
           className="font-display font-black text-charcoal uppercase leading-[0.88] mb-6 break-words"

@@ -283,7 +283,12 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-scroll-pulse">
+      {/* Decorativo: some em telas pequenas/baixas, onde se sobreporia aos
+          stats, e fica oculto das tecnologias assistivas. */}
+      <div
+        aria-hidden="true"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-2 animate-scroll-pulse [@media(max-height:640px)]:hidden"
+      >
         <span className="text-steel-400 text-[10px] uppercase tracking-[0.4em]">
           Role
         </span>
